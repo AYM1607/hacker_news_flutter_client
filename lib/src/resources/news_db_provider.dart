@@ -9,6 +9,7 @@ import '../models/item_model.dart';
 
 class NewsDbProvider {
   Database db;
+
   init() async {
     final directory = await getDatabasesPath();
     final path = join(directory, "items.db");
@@ -31,9 +32,23 @@ class NewsDbProvider {
             text TEXT,
             dead INTEGER,
             parent INTEGER
-          )
+          ) 
         """);
       },
     );
+  }
+
+  fetchItem(int id) async {
+    final maps = await db.query(
+      "Items",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+
+    if (maps.length > 0) {
+      return ItemModel.fromDb(maps.first);
+    }
+
+    return null;
   }
 }
