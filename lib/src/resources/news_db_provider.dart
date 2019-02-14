@@ -11,6 +11,10 @@ class NewsDbProvider implements Cache, Source {
   /// A connection to the database.
   Database db;
 
+  NewsDbProvider() {
+    init();
+  }
+
   /// Initializes the database.
   ///
   /// Creates a table for the items.
@@ -75,3 +79,5 @@ class NewsDbProvider implements Cache, Source {
     return db.insert("Items", item.toDbMap());
   }
 }
+
+final newsDbProvider = NewsDbProvider();
