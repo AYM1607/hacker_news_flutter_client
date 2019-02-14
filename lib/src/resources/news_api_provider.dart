@@ -3,12 +3,13 @@ import 'dart:async';
 
 import 'package:http/http.dart' show Client;
 
+import 'repository.dart' show Source;
 import '../models/item_model.dart';
 
 const _rootUrl = 'https://hacker-news.firebaseio.com/v0';
 
 /// An interface to the hacker news Api
-class NewsApiProvider {
+class NewsApiProvider implements Source {
   Client client = Client();
 
   /// Returns a list of the current top ids

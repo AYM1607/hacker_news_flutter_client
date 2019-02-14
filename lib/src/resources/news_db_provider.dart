@@ -1,14 +1,13 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'repository.dart' show Cache, Source;
 import '../models/item_model.dart';
 
 /// An interface to the local sqlite database.
-class NewsDbProvider {
+class NewsDbProvider implements Cache, Source {
   /// A connection to the database.
   Database db;
 
@@ -39,8 +38,21 @@ class NewsDbProvider {
             parent INTEGER
           ) 
         """);
+
+        newDb.execute("""
+          CREATE TABLE TopIds (
+            databaseId INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER
+          )
+        """);
       },
     );
+  }
+
+  // TODO: implement this functionality.
+  // Returns a list of top ids from the local database.
+  Future<List<int>> fetchTopIds() {
+    return null;
   }
 
   /// Returns an item from a particular id.
