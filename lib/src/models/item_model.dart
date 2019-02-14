@@ -12,8 +12,6 @@ class ItemModel {
   final String text;
   final bool dead;
   final int parent;
-  final int poll;
-  final List<dynamic> parts;
 
   ItemModel(
       {this.by,
@@ -28,26 +26,22 @@ class ItemModel {
       this.deleted,
       this.text,
       this.dead,
-      this.parent,
-      this.poll,
-      this.parts});
+      this.parent});
 
   ItemModel.fromJson(Map<String, dynamic> json)
-  : by = json['by'],
-    descendants = json['descendants'],
-    id = json['id'],
-    kids = json['kids'],
-    score = json['score'],
-    time = json['time'],
-    title = json['title'],
-    type = json['type'],
-    url = json['url'],
-    deleted = json['deleted'],
-    text = json['text'],
-    dead = json['dead'],
-    parent = json['parent'],
-     poll = json['poll'],
-    parts = json['parts'];
+      : by = json['by'],
+        descendants = json['descendants'],
+        id = json['id'],
+        kids = json['kids'],
+        score = json['score'],
+        time = json['time'],
+        title = json['title'],
+        type = json['type'],
+        url = json['url'],
+        deleted = json['deleted'],
+        text = json['text'],
+        dead = json['dead'],
+        parent = json['parent'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -64,8 +58,6 @@ class ItemModel {
     data['text'] = this.text;
     data['dead'] = this.dead;
     data['parent'] = this.parent;
-    data['poll'] = this.poll;
-    data['parts'] = this.parts;
     return data;
   }
 }
