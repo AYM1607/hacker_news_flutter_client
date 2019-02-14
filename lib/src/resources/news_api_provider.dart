@@ -12,20 +12,22 @@ class NewsApiProvider {
   Client client = Client();
 
   /// Returns a list of the current top ids
-  fetchTopIds() async {
+  Future<List<int>> fetchTopIds() async {
     try {
       final response = await client.get('$_rootUrl/topstories.json');
       final ids = json.decode(response.body);
-
-      return ids;
+      // The decoding proccess returns a list of dynamic elements, when integers
+      // are expected, so we need to cast the list.
+      return ids.cast<int>();
     } catch (e) {
       print('API: Error while fetching top ids');
+      print('error text: ' + e.toString());
       return null;
     }
   }
 
   /// Returns an item from a particular id
-  fetchItem(int id) async {
+  Future<ItemModel> fetchItem(int id) async {
     try {
       final response = await client.get('$_rootUrl/stories/$id.json');
       final parsedJson = json.decode(response.body);

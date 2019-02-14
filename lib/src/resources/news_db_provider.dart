@@ -7,10 +7,15 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/item_model.dart';
 
+/// An interface to the local sqlite database.
 class NewsDbProvider {
+  /// A connection to the database.
   Database db;
 
-  init() async {
+  /// Initializes the database.
+  ///
+  /// Creates a table for the items.
+  void init() async {
     final directory = await getDatabasesPath();
     final path = join(directory, "items.db");
     db = await openDatabase(
@@ -38,7 +43,8 @@ class NewsDbProvider {
     );
   }
 
-  fetchItem(int id) async {
+  /// Returns an item from a particular id.
+  Future<ItemModel> fetchItem(int id) async {
     final maps = await db.query(
       "Items",
       where: "id = ?",
@@ -52,7 +58,8 @@ class NewsDbProvider {
     return null;
   }
 
-  addItem(ItemModel item) {
-    db.insert("Items", item.toDbMap());
+  /// Inserts an item into the local database.
+  Future<int> addItem(ItemModel item) {
+    return db.insert("Items", item.toDbMap());
   }
 }
