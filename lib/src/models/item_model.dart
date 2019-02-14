@@ -77,4 +77,22 @@ class ItemModel {
     data['parent'] = this.parent;
     return data;
   }
+
+  Map<String, dynamic> toDbMap() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['by'] = this.by;
+    data['descendants'] = this.descendants;
+    data['id'] = this.id;
+    data['kids'] = jsonEncode(this.kids);
+    data['score'] = this.score;
+    data['time'] = this.time;
+    data['title'] = this.title;
+    data['type'] = this.type;
+    data['url'] = this.url;
+    data['deleted'] = this.deleted ? 1 : 0;
+    data['text'] = this.text;
+    data['dead'] = this.dead ? 1 : 0;
+    data['parent'] = this.parent;
+    return data;
+  }
 }
