@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'stories_bloc.dart';
+export 'stories_bloc.dart';
 
 /// Provider that allows the use of the stories bloc on a particular
 /// widget subtree.

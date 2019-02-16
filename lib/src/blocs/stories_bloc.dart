@@ -3,13 +3,35 @@ import 'package:rxdart/rxdart.dart';
 import '../models/item_model.dart';
 import '../resources/repository.dart';
 
+/// A business logic component that is in charge of fetching and keeping track
+/// of the top stories.
 class StoriesBloc {
   final Repository _repository = Repository();
-
   final PublishSubject _topIds = PublishSubject<List<int>>();
+  Observable<Map<int, Future<ItemModel>>> items;
+
+  StoriesBloc() {
+    items = _topIds.stream.transform(_itemsTransformer());
+  }
 
   // Streams getters
+  /// A stream of top ids.
   Observable<List<int>> get topIds => _topIds.stream;
+
+  // Sinks getters
+  /// Starts the process of fetching a specific item.
+  Function(int) get fetchItem => _topIds.sink.add;
+
+  /// Transforms incoming ids into a cache that contains every fetched id.
+  ScanStreamTransformer<int, Map<int, Future<ItemModel>>> _itemsTransformer() {
+    return ScanStreamTransformer(
+      (Map<int, Future<ItemModel>> cache, int id, _) {
+        cache[id] = _repository.fetchItem(id);
+        return cache;
+      },
+      <int, Future<ItemModel>>{},
+    );
+  }
 
   /// Starts the process of fetching the top ids.
   ///

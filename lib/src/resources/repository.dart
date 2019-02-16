@@ -37,8 +37,9 @@ class Repository {
 
     caches.forEach((Cache cache) {
       // If the source that provided this item is also a cache, it's not
-      // necessary to add it to itself, we use as dynamic because the cache
-      // could have any type.
+      // necessary to add it to itself. We treat the chache as dynamic
+      // to allow comparison, since a cache could be implemented by
+      // multiple classes.
       if (source != cache as dynamic) {
         cache.addItem(item);
       }
