@@ -15,8 +15,8 @@ class StoriesProvider extends InheritedWidget {
   @override
   bool updateShouldNotify(_) => true;
 
-  /// Returns a bloc from a context.
-  StoriesBloc of(BuildContext context) {
+  /// Returns a stories bloc from a context.
+  static StoriesBloc of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(StoriesProvider)
             as StoriesProvider)
         ._bloc;
