@@ -40,7 +40,7 @@ class Repository {
       // necessary to add it to itself. We treat the chache as dynamic
       // to allow comparison, since a cache could be implemented by
       // multiple classes.
-      if (source != cache as dynamic) {
+      if (source != (cache as dynamic)) {
         cache.addItem(item);
       }
     });

@@ -34,15 +34,15 @@ class ItemModel {
       : by = json['by'],
         descendants = json['descendants'],
         id = json['id'],
-        kids = json['kids'],
+        kids = json['kids'] ?? [],
         score = json['score'],
         time = json['time'],
         title = json['title'],
         type = json['type'],
         url = json['url'],
-        deleted = json['deleted'],
-        text = json['text'],
-        dead = json['dead'],
+        deleted = json['deleted'] ?? false,
+        text = json['text'] ?? '',
+        dead = json['dead'] ?? false,
         parent = json['parent'];
 
   ItemModel.fromDb(Map<String, dynamic> dbMap)

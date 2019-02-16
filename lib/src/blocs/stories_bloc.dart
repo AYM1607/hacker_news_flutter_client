@@ -7,20 +7,24 @@ import '../resources/repository.dart';
 /// of the top stories.
 class StoriesBloc {
   final Repository _repository = Repository();
-  final PublishSubject _topIds = PublishSubject<List<int>>();
-  Observable<Map<int, Future<ItemModel>>> items;
+  final _topIds = PublishSubject<List<int>>();
+  final _itemsOutput = BehaviorSubject<Map<int, Future<ItemModel>>>();
+  final _itemsFetcher = PublishSubject<int>();
 
   StoriesBloc() {
-    items = _topIds.stream.transform(_itemsTransformer());
+    _itemsFetcher.transform(_itemsTransformer()).pipe(_itemsOutput);
   }
 
   // Streams getters
   /// A stream of top ids.
   Observable<List<int>> get topIds => _topIds.stream;
 
+  /// A stream of the cached items.
+  Observable<Map<int, Future<ItemModel>>> get items => _itemsOutput.stream;
+
   // Sinks getters
   /// Starts the process of fetching a specific item.
-  Function(int) get fetchItem => _topIds.sink.add;
+  Function(int) get fetchItem => _itemsFetcher.sink.add;
 
   /// Transforms incoming ids into a cache that contains every fetched id.
   ScanStreamTransformer<int, Map<int, Future<ItemModel>>> _itemsTransformer() {
@@ -44,5 +48,7 @@ class StoriesBloc {
 
   dispose() {
     _topIds.close();
+    _itemsOutput.close();
+    _itemsFetcher.close();
   }
 }
