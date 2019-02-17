@@ -78,6 +78,12 @@ class NewsDbProvider implements Cache, Source {
   Future<int> addItem(ItemModel item) {
     return db.insert("Items", item.toDbMap());
   }
+
+  /// Deletes of the data inside the tables.
+  Future<void> clear() async {
+    await db.delete('Items');
+    await db.delete('TopIds');
+  }
 }
 
 final newsDbProvider = NewsDbProvider();

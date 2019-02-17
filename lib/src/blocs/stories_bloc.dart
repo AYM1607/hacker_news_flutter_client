@@ -46,6 +46,11 @@ class StoriesBloc {
     _topIds.sink.add(topIds);
   }
 
+  /// Deletes all cached data.
+  Future<void> clearCache() {
+    return _repository.clearCaches();
+  }
+
   dispose() {
     _topIds.close();
     _itemsOutput.close();
