@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 
-import "screens/news_list.dart";
 import "blocs/stories_provider.dart";
+import "screens/news_list.dart";
+import "screens/news_detail.dart";
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -10,14 +11,21 @@ class App extends StatelessWidget {
     return StoriesProvider(
       child: MaterialApp(
         title: 'Hacker News client',
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (BuildContext context) {
-              return NewsList();
-            },
-          );
-        },
+        onGenerateRoute: routes,
       ),
+    );
+  }
+
+  Route routes(RouteSettings settings) {
+    if (settings.name == '/') {
+      return MaterialPageRoute(builder: (BuildContext context) {
+        return NewsList();
+      });
+    }
+    return MaterialPageRoute(
+      builder: (BuildContext context) {
+        return NewsDetail();
+      },
     );
   }
 }
