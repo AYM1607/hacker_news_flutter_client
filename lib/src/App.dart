@@ -10,7 +10,13 @@ class App extends StatelessWidget {
     return StoriesProvider(
       child: MaterialApp(
         title: 'Hacker News client',
-        home: NewsList(),
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return NewsList();
+            },
+          );
+        },
       ),
     );
   }
