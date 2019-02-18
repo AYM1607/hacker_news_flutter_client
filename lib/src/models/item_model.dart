@@ -32,7 +32,7 @@ class ItemModel {
       this.parent});
 
   ItemModel.fromJson(Map<String, dynamic> json)
-      : by = json['by'],
+      : by = json['by'] ?? '',
         descendants = json['descendants'] ?? 0,
         id = json['id'],
         kids = json['kids'] ?? [],
