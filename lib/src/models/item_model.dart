@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+//TODO: refactor the kids field to be a list of int and not dynamic.
 class ItemModel {
   final String by;
   final int descendants;
