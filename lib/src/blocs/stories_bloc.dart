@@ -43,7 +43,11 @@ class StoriesBloc {
   /// These ids could be out of date if they come from a cached source.
   Future<void> fetchTopIds() async {
     final topIds = await _repository.fetchTopIds();
-    _topIds.sink.add(topIds);
+    if (topIds == null) {
+      _topIds.sink.addError('No top ids available');
+    } else {
+      _topIds.sink.add(topIds);
+    }
   }
 
   /// Deletes all cached data.

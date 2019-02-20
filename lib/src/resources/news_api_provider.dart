@@ -21,8 +21,6 @@ class NewsApiProvider implements Source {
       // are expected, so we need to cast the list.
       return ids.cast<int>();
     } catch (e) {
-      print('API: Error while fetching top ids');
-      print('error text: ' + e.toString());
       return null;
     }
   }
@@ -35,7 +33,6 @@ class NewsApiProvider implements Source {
 
       return ItemModel.fromJson(parsedJson);
     } catch (e) {
-      print('API: Error while fetching individual item');
       return null;
     }
   }

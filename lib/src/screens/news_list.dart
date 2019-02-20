@@ -20,6 +20,19 @@ class NewsList extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.topIds,
       builder: (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
+        if (snapshot.hasError) {
+          return TopIdsRefresher(
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  child: Center(
+                    child: Text('Error while fetching the top stories'),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(),
