@@ -22,15 +22,7 @@ class NewsList extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
         if (snapshot.hasError) {
           return TopIdsRefresher(
-            child: CustomScrollView(
-              slivers: [
-                SliverFillRemaining(
-                  child: Center(
-                    child: Text('Error while fetching the top stories'),
-                  ),
-                ),
-              ],
-            ),
+            child: buildScrollableErrorText('No available stories'),
           );
         }
         if (!snapshot.hasData) {
@@ -51,6 +43,18 @@ class NewsList extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget buildScrollableErrorText(String error) {
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          child: Center(
+            child: Text(error),
+          ),
+        ),
+      ],
     );
   }
 }

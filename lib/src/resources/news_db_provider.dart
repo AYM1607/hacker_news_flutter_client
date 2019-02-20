@@ -91,6 +91,7 @@ class NewsDbProvider implements Cache, Source {
     return null;
   }
 
+  // TODO: refactor to a [Future<int>], the [int] returned is not being used anyway.
   /// Inserts an item into the local database.
   Future<int> addItem(ItemModel item) async {
     // We dont want to attempt to insert this item if the db is not ready or if
